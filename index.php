@@ -2,9 +2,18 @@
 <?php
 	
 	include('identificador.php');
-	$a=new Identi;
-	$conexion=mysqli_connect("localhost","root","raspberry","php") or die("Conexion no establecida")
 	
+
+	
+	$a= new Identi();
+	$b=$a->isRpi();
+	if($b==true) {
+		$conexion=mysqli_connect("localhost","root","raspberry","php") or die("Conexion no establecida");
+	}
+	else {
+		$conexion=mysqli_connect("localhost","root","","php") or die("Conexion no establecida");
+		echo "Utilizando base de datos xamp";
+	}
 		
 	
 ?>
@@ -14,7 +23,7 @@
 	</head>
 	<body>
 	
-		<form method="post" action="form.php">
+		<form method="post" action="index.php">
 			<input type="text" name="name" placeholder="Write your name"/><br/>
 			<input type="password" name="pass" placeholder="Write your pass"/><br/>
 			<input type="email" name="email" placeholder="Write your email"/><br/>
@@ -63,8 +72,8 @@
 				<th><?php echo $nombre;?></th>
 				<th><?php echo $cont;?></th>
 				<th><?php echo $email;?></th>
-				<th><a href="form.php?edit=<?php echo $id;?>">Edit</a></th>
-				<th><a href="form.php?delete=<?php echo $id;?>">Delete</a></th>
+				<th><a href="index.php?edit=<?php echo $id;?>">Edit</a></th>
+				<th><a href="index.php?delete=<?php echo $id;?>">Delete</a></th>
 				
 			</tr>
 			<?php } ?>
@@ -84,7 +93,7 @@
 			$run_delete = mysqli_query($conexion,$delete);
 			if($run_delete){
 				echo "<script>alert('Se borró un usuario')</script>";
-				echo "<script>window.open('form.php','_self')</script>";
+				echo "<script>window.open('index.php','_self')</script>";
 				
 			}
 		}
