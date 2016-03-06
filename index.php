@@ -9,6 +9,7 @@
 	$b=$a->isRpi();
 	if($b==true) {
 		$conexion=mysqli_connect("localhost","root","raspberry","php") or die("Conexion no establecida");
+		echo "Utilizando base de datos RPI";
 	}
 	else {
 		$conexion=mysqli_connect("localhost","root","","php") or die("Conexion no establecida");
